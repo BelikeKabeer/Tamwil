@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamwil | Modern Tradition</title>
+    <meta name="description" content="A highly professional finance application homepage featuring Apple-style glassmorphism combined with traditional banking imagery.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Abstract gradient blur powering the glassmorphism -->
+    <div class="ambient-gradient top-left gradient-1"></div>
+    <div class="ambient-gradient bottom-right gradient-2"></div>
+
+    <header class="mac-os-glass header-main">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🏛️</span> Tamwil
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div class="nav-wrapper">
+                <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#">Services <span class="drop-icon">▾</span></a>
+                        <div class="dropdown-menu mega-menu mac-os-glass panel-glassmorphism">
+                            <div class="mega-menu-grid">
+                                <a href="emi.html" class="mega-menu-item">
+                                    <div class="item-icon glass-icon">🏠</div>
+                                    <div class="item-content">
+                                        <h4>EMI Calculator</h4>
+                                        <p>Plan your home loan with precision</p>
+                                    </div>
+                                </a>
+                                <a href="sip.html" class="mega-menu-item">
+                                    <div class="item-icon glass-icon">📈</div>
+                                    <div class="item-content">
+                                        <h4>SIP Calculator</h4>
+                                        <p>Forecast your wealth multiplication</p>
+                                    </div>
+                                </a>
+                                <a href="loan.html" class="mega-menu-item">
+                                    <div class="item-icon glass-icon">💼</div>
+                                    <div class="item-content">
+                                        <h4>Loan Application</h4>
+                                        <p>Apply for an exclusive credit line</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="index.html#wealth">Wealth</a></li>
+                    <li><a href="index.html#advisors">Advisors</a></li>
+                </ul>
+            </nav>
+                <div class="header-actions">
+                    <a href="sign-in.html" class="login-link">Sign In</a>
+                    <a href="open-account.html" class="cta-btn primary-btn" style="text-decoration: none; display: inline-block;">Open Account</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-image-bg">
+                <img src="assets/hero_bg.png" alt="Classic Bank Exterior" class="bg-img float-slow">
+                <div class="light-overlay"></div>
+            </div>
+            
+            <div class="hero-container relative-z">
+                <div class="hero-content text-center mac-os-glass glass-card interactive-element">
+                    <h1 class="animate-up heading-serif">The Heritage of Wealth.<br>The Elegance of Tomorrow.</h1>
+                    <p class="animate-up delay-1">Tamwil unifies a century of financial stability with a seamless, next-generation digital experience tailored for absolute clarity and control.</p>
+                    <div class="hero-cta animate-up delay-2">
+                        <a href="open-account.html" class="primary-btn lg-btn shadow-subtle">Become a Client</a>
+                        <a href="#wealth" class="secondary-btn lg-btn glass-btn">Explore Services</a>
+                    </div>
+                </div>
+                
+                <!-- Trust Badges -->
+                <div class="trust-bar mac-os-glass panel-glassmorphism animate-up delay-3 interactive-element-subtle">
+                    <div class="stat-item">
+                         <div class="icon-wrapper glass-icon">🛡️</div>
+                         <div>
+                            <h4>FDIC Insured</h4>
+                            <p>Up to $250,000</p>
+                         </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="stat-item">
+                        <div class="icon-wrapper glass-icon">🏛️</div>
+                        <div>
+                           <h4>$250B+</h4>
+                           <p>Assets Managed</p>
+                        </div>
+                   </div>
+                   <div class="divider"></div>
+                   <div class="stat-item">
+                        <div class="icon-wrapper glass-icon">⭐</div>
+                        <div>
+                           <h4>A+ Rating</h4>
+                           <p>Global Stability</p>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wealth Section -->
+        <section class="services section-padding" id="wealth">
+            <div class="container text-center relative-z">
+                <div class="mac-os-glass title-pill scroll-reveal">Wealth Management</div>
+                <h2 class="section-title heading-serif scroll-reveal mt-2">Preserving Your Legacy</h2>
+                <p class="section-subtitle scroll-reveal">Time-honored strategies embedded in a crystal-clear digital environment.</p>
+                
+                <div class="services-grid">
+                    <div class="service-card mac-os-glass panel-glassmorphism scroll-reveal list-anim-1 interactive-element">
+                        <div class="card-icon glass-icon theme-color">📊</div>
+                        <h3 class="heading-serif">Strategic Portfolios</h3>
+                        <p>Expertly curated investment portfolios balancing robust security with consistent, disciplined growth.</p>
+                        <a href="#" class="learn-more">Learn more <span class="arrow">→</span></a>
+                    </div>
+                    
+                    <div class="service-image-container scroll-reveal list-anim-2">
+                        <div class="glass-image-frame interactive-element-image">
+                           <img src="assets/wealth.png" alt="Traditional Bank Vault" class="feature-img">
+                           <div class="glass-glare"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card mac-os-glass panel-glassmorphism scroll-reveal list-anim-3 interactive-element">
+                        <div class="card-icon glass-icon theme-color">🔐</div>
+                        <h3 class="heading-serif">Uncompromising Security</h3>
+                        <p>Physical and digital asset protection backed by the strongest institutional safeguards in the industry.</p>
+                        <a href="#" class="learn-more">Learn more <span class="arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advisors Section -->
+        <section class="advisors section-padding" id="advisors">
+            <div class="container layout-split relative-z">
+                <div class="visual-content scroll-reveal left">
+                    <div class="image-frame mac-os-glass interactive-element-image">
+                        <img src="assets/advisor.png" alt="Professional Financial Advisor" class="visual-img">
+                        <div class="advisor-nameplate mac-os-glass-strong text-dark">
+                            <h4 class="heading-serif">Eleanor Vance</h4>
+                            <p>Senior Vice President, Wealth Management</p>
+                        </div>
+                        <div class="glass-glare"></div>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <div class="mac-os-glass title-pill scroll-reveal">Private Banking</div>
+                    <h2 class="section-title heading-serif scroll-reveal mt-2">Dedicated Expertise</h2>
+                    
+                    <div class="mac-os-glass content-glass-card scroll-reveal mt-4">
+                        <p class="text-dark">Every Private Wealth client works closely with a dedicated advisor. We believe that true financial success is built on long-term relationships, profound market insight, and absolute discretion.</p>
+                        <ul class="feature-list mt-4">
+                            <li>
+                                <div class="check-icon glass-icon">✦</div>
+                                <span class="text-dark font-medium">Personalized wealth structuring</span>
+                            </li>
+                            <li>
+                                <div class="check-icon glass-icon">✦</div>
+                                <span class="text-dark font-medium">Tax-efficient estate planning</span>
+                            </li>
+                            <li>
+                                <div class="check-icon glass-icon">✦</div>
+                                <span class="text-dark font-medium">Bespoke investment advisory</span>
+                            </li>
+                        </ul>
+                        <div class="mt-4 pt-4 border-top">
+                            <a href="open-account.html" class="primary-btn lg-btn shadow-subtle w-full" style="display:block;">Schedule a Consultation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="final-cta text-center scroll-reveal">
+            <div class="cta-inner container mac-os-glass standout-glass interactive-element">
+                <h2 class="heading-serif text-navy">Experience the Standard of Excellence.</h2>
+                <p class="text-gray mt-2">Join generations of clients who have entrusted their financial legacy to Tamwil.</p>
+                <div class="cta-actions mt-4">
+                    <a href="open-account.html" class="primary-btn lg-btn shadow-subtle">Open an Account</a>
+                    <a href="mailto:contact@tamwil.com" class="secondary-btn lg-btn glass-btn">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer mac-os-glass">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo"><span class="logo-icon">🏛️</span> Tamwil</div>
+                <p class="mt-2 text-sm text-gray">Founded on principles of integrity and strength, delivering premier financial services globally since 1892.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Personal</h4>
+                    <ul>
+                        <li><a href="#">Checking & Savings</a></li>
+                        <li><a href="#">Mortgages</a></li>
+                        <li><a href="#">Credit Cards</a></li>
+                    </ul>
+                </div>
+                <div class="link-group">
+                    <h4>Wealth</h4>
+                    <ul>
+                        <li><a href="#">Private Banking</a></li>
+                        <li><a href="#">Trust Services</a></li>
+                        <li><a href="#">Estate Planning</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Tamwil Corporation. Equal Housing Lender. Member FDIC.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
