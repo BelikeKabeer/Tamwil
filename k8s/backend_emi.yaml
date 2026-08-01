@@ -9,32 +9,33 @@ spec:
   selector:
     matchLabels:
       app: backend-emi
-      template:
-       metadata:
-        labels:
-          app: backend-emi
-          spec:
-            containers:
-              - name: backend-emi
-                image: backend-emi:latest
-                ports:
-                  - containerPort: 5000
-                  resources:
-                    requests:
-                      memory: "128Mi"
-                      cpu: "100m"
-                    limits:
-                      memory: "250Mi"
-                      cpu: "300m"
+  template:
+    metadata:
+      labels:
+        app: backend-emi
+    spec:
+      containers:
+      - name: backend-emi
+        image: backend-emi:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "250Mi"
+            cpu: "300m"
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-emi-service
+  name: backend-emi
 spec:
-type: ClusterIP
-selector:
-  app: backend-emi
-ports:
-      port: 5000
-      targetPort: 5000
+  type: ClusterIP
+  selector:
+    app: backend-emi
+  ports:
+  - port: 5000
+    targetPort: 5000

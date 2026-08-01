@@ -3,11 +3,10 @@ kind: Ingress
 metadata:
   name: tamwil-ingress
   annotations:
-    # Tells AWS to automatically provision an Application Load Balancer (ALB)
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
 spec:
+  ingressClassName: alb
   rules:
   - http:
       paths:
