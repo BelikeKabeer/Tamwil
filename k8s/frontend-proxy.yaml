@@ -15,6 +15,7 @@ spec:
         app: frontend-proxy
     spec:
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: frontend-proxy
         image: 376424942400.dkr.ecr.us-east-1.amazonaws.com/tamwil-frontend-proxy:latest
