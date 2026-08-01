@@ -50,9 +50,9 @@ jobs:
       run: |
         aws eks update-kubeconfig --region us-east-1 --name finance-homepage-cluster
         
-        sed -i "s|backend-emi:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-emi:latest|g" k8s/backend_emi.yaml
-        sed -i "s|backend-sip:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-sip:latest|g" k8s/backend_sip.yaml
-        sed -i "s|backend-loan:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-loan:latest|g" k8s/backend_loan.yaml
-        sed -i "s|frontend-proxy:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-frontend-proxy:latest|g" k8s/frontend-proxy.yaml
+        sed -i "s|image: .*tamwil-backend-emi.*|image: ${{ steps.login-ecr.outputs.registry }}/tamwil-backend-emi:${{ github.sha }}|g" k8s/backend_emi.yaml
+        sed -i "s|image: .*tamwil-backend-sip.*|image: ${{ steps.login-ecr.outputs.registry }}/tamwil-backend-sip:${{ github.sha }}|g" k8s/backend_sip.yaml
+        sed -i "s|image: .*tamwil-backend-loan.*|image: ${{ steps.login-ecr.outputs.registry }}/tamwil-backend-loan:${{ github.sha }}|g" k8s/backend_loan.yaml
+        sed -i "s|image: .*tamwil-frontend-proxy.*|image: ${{ steps.login-ecr.outputs.registry }}/tamwil-frontend-proxy:${{ github.sha }}|g" k8s/frontend-proxy.yaml
 
         kubectl apply -f k8s/
