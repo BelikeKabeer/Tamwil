@@ -1,0 +1,61 @@
+name: Tamwil Microservices CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build Docker Images & Deploy to EKS
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-region: us-east-1
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build & Push Docker Images
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Build & Push EMI Backend
+        docker build -t $ECR_REGISTRY/tamwil-backend-emi:$IMAGE_TAG -t $ECR_REGISTRY/tamwil-backend-emi:latest ./backend-emi
+        docker push $ECR_REGISTRY/tamwil-backend-emi --all-tags
+
+        # Build & Push SIP Backend
+        docker build -t $ECR_REGISTRY/tamwil-backend-sip:$IMAGE_TAG -t $ECR_REGISTRY/tamwil-backend-sip:latest ./backend-sip
+        docker push $ECR_REGISTRY/tamwil-backend-sip --all-tags
+
+        # Build & Push Loan Backend
+        docker build -t $ECR_REGISTRY/tamwil-backend-loan:$IMAGE_TAG -t $ECR_REGISTRY/tamwil-backend-loan:latest ./backend-loan
+        docker push $ECR_REGISTRY/tamwil-backend-loan --all-tags
+
+        # Build & Push Frontend Proxy
+        docker build -t $ECR_REGISTRY/tamwil-frontend-proxy:$IMAGE_TAG -t $ECR_REGISTRY/tamwil-frontend-proxy:latest -f Dockerfile .
+        docker push $ECR_REGISTRY/tamwil-frontend-proxy --all-tags
+
+    - name: Update Kubeconfig & Deploy to EKS
+      run: |
+        aws eks update-kubeconfig --region us-east-1 --name finance-homepage-cluster
+        
+        sed -i "s|backend-emi:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-emi:latest|g" k8s/backend-emi.yaml
+        sed -i "s|backend-sip:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-sip:latest|g" k8s/backend-sip.yaml
+        sed -i "s|backend-loan:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-loan:latest|g" k8s/backend-loan.yaml
+        sed -i "s|frontend-proxy:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-frontend-proxy:latest|g" k8s/frontend-proxy.yaml
+
+        kubectl apply -f k8s/
