@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend-proxy:
+    image: nginx:alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend-emi
+      - backend-sip
+      - backend-loan
+
+  backend-emi:
+    build: ./backend-emi
+    expose:
+      - '5000'
+
+  backend-sip:
+    build: ./backend-sip
+    expose:
+      - '5000'
+
+  backend-loan:
+    build: ./backend-loan
+    environment:
+      MYSQL_HOST: mysql-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin123
+      MYSQL_DATABASE: bluevault_db
+    expose:
+      - '5000'
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    build: ./mysql-loan
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: bluevault_db
+    ports:
+      - '3306:3306'

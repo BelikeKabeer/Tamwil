@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-emi
+  labels:
+    app: backend-emi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-emi
+      template:
+       metadata:
+        labels:
+          app: backend-emi
+          spec:
+            containers:
+              - name: backend-emi
+                image: backend-emi:latest
+                ports:
+                  - containerPort: 5000
+                  resources:
+                    requests:
+                      memory: "128Mi"
+                      cpu: "100m"
+                    limits:
+                      memory: "250Mi"
+                      cpu: "300m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-emi-service
+spec:
+type: ClusterIP
+selector:
+  app: backend-emi
+ports:
+      port: 5000
+      targetPort: 5000

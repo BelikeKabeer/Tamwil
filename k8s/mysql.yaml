@@ -1,0 +1,51 @@
+# 1. StatefullSet for MySQL Database
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-db
+spec:
+  serviceName: "mysql-db"
+  replicas: 1 # Databases run 1 primary instance
+  selector:
+    matchLabels:
+      app: mysql-db
+  template:
+    metadata:
+      labels:
+        app: mysql-db
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "admin123"
+        - name: MYSQL_DATABASE
+          value: "bluevault_db"
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+
+  # Ask AWS EBS to attach a 5GB permanent disk
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Gi
+
+---
+# 2. Service for MySQL Database
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-db # <--- THIS MATCHES 'MYSQL_HOST = mysql-db'!
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql-db

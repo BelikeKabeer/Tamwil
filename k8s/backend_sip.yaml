@@ -1,0 +1,41 @@
+apiVersion: apps/v1  # <-- Fix 1: apps/v1 for Deployment
+kind: Deployment
+metadata:
+  name: backend-sip
+  labels:
+    app: backend-sip
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-sip
+  template:            # <-- Fix 2: Aligned under spec: (same level as selector and replicas)
+    metadata:
+      labels:
+        app: backend-sip
+    spec:
+      containers:
+      - name: backend-sip
+        image: backend-sip:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "250Mi"
+            cpu: "300m"
+
+---
+apiVersion: v1        # <-- v1 is correct for Service!
+kind: Service
+metadata:
+  name: backend-sip   # <-- Fix 3: Name matches Nginx proxy DNS name!
+spec:
+  type: ClusterIP
+  selector:
+    app: backend-sip
+  ports:
+  - port: 5000
+    targetPort: 5000
