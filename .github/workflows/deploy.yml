@@ -50,9 +50,9 @@ jobs:
       run: |
         aws eks update-kubeconfig --region us-east-1 --name finance-homepage-cluster
         
-        sed -i "s|backend-emi:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-emi:latest|g" k8s/backend-emi.yaml
-        sed -i "s|backend-sip:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-sip:latest|g" k8s/backend-sip.yaml
-        sed -i "s|backend-loan:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-loan:latest|g" k8s/backend-loan.yaml
+        sed -i "s|backend-emi:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-emi:latest|g" k8s/backend_emi.yaml
+        sed -i "s|backend-sip:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-sip:latest|g" k8s/backend_sip.yaml
+        sed -i "s|backend-loan:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-backend-loan:latest|g" k8s/backend_loan.yaml
         sed -i "s|frontend-proxy:latest|${{ steps.login-ecr.outputs.registry }}/tamwil-frontend-proxy:latest|g" k8s/frontend-proxy.yaml
 
         kubectl apply -f k8s/
