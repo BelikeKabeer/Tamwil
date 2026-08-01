@@ -18,6 +18,7 @@ spec:
       containers:
       - name: frontend-proxy
         image: 376424942400.dkr.ecr.us-east-1.amazonaws.com/tamwil-frontend-proxy:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
           hostPort: 80
