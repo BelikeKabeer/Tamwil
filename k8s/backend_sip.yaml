@@ -1,22 +1,22 @@
-apiVersion: apps/v1  # <-- Fix 1: apps/v1 for Deployment
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-sip
   labels:
     app: backend-sip
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend-sip
-  template:            # <-- Fix 2: Aligned under spec: (same level as selector and replicas)
+  template:
     metadata:
       labels:
         app: backend-sip
     spec:
       containers:
       - name: backend-sip
-        image: backend-sip:latest
+        image: 376424942400.dkr.ecr.us-east-1.amazonaws.com/tamwil-backend-sip:latest
         ports:
         - containerPort: 5000
         resources:
@@ -28,10 +28,10 @@ spec:
             cpu: "300m"
 
 ---
-apiVersion: v1        # <-- v1 is correct for Service!
+apiVersion: v1
 kind: Service
 metadata:
-  name: backend-sip   # <-- Fix 3: Name matches Nginx proxy DNS name!
+  name: backend-sip
 spec:
   type: ClusterIP
   selector:

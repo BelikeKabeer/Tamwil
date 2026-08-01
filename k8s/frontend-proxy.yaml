@@ -5,7 +5,7 @@ metadata:
   labels:
     app: frontend-proxy
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend-proxy
@@ -14,11 +14,13 @@ spec:
       labels:
         app: frontend-proxy
     spec:
+      hostNetwork: true
       containers:
       - name: frontend-proxy
-        image: frontend-proxy:latest
+        image: 376424942400.dkr.ecr.us-east-1.amazonaws.com/tamwil-frontend-proxy:latest
         ports:
         - containerPort: 80
+          hostPort: 80
         resources:
           requests:
             memory: "64Mi"
@@ -33,7 +35,7 @@ kind: Service
 metadata:
   name: frontend-proxy
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: frontend-proxy
   ports:

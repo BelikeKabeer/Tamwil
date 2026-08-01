@@ -5,7 +5,7 @@ metadata:
   labels:
     app: backend-loan
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend-loan
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend-loan
-        image: backend-loan:latest
+        image: 376424942400.dkr.ecr.us-east-1.amazonaws.com/tamwil-backend-loan:latest
         ports:
         - containerPort: 5000
         env:

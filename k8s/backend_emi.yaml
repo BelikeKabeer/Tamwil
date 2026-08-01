@@ -5,7 +5,7 @@ metadata:
   labels:
     app: backend-emi
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend-emi
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend-emi
-        image: backend-emi:latest
+        image: 376424942400.dkr.ecr.us-east-1.amazonaws.com/tamwil-backend-emi:latest
         ports:
         - containerPort: 5000
         resources:
