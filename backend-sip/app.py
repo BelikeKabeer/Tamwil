@@ -4,10 +4,14 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/calculate', methods=['POST'])
+@app.route('/api/', methods=['POST'])
 @app.route('/api/calculate', methods=['POST'])
+@app.route('/calculate', methods=['POST'])
 def calculate():
     data = request.get_json(force=True)
+    if not data:
+        return jsonify({'error': 'Invalid payload'}), 400
+
     investment = float(data.get('investment', 0))
     rate = float(data.get('rate', 0)) / 100 / 12
     months = int(data.get('years', 0)) * 12
