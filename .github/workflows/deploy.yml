@@ -5,14 +5,23 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
-    name: Build Docker Images & Deploy to EKS
+    name: Build Docker Images, Deploy to EKS & Publish GitHub Pages
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
+
+    - name: Deploy Frontend to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./Frontend
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
