@@ -21,28 +21,47 @@ def get_db_connection():
     """ ✅ Helper function to get a new DB connection """
     return mysql.connector.connect(**db_config)
 
-@app.route('/submit-loan', methods=['POST'])  # ✅ Changed route for cleaner ingress mapping
+def init_db():
+    """ ✅ Automatically create table if it does not exist """
+    try:
+        with get_db_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute("""
+                    CREATE TABLE IF NOT EXISTS loan_applications (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL,
+                        contact VARCHAR(255) NOT NULL,
+                        uid VARCHAR(255) NOT NULL,
+                        loan_type VARCHAR(255) NOT NULL,
+                        employment VARCHAR(255) NOT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                conn.commit()
+        logging.info("✅ Database table ensured")
+    except Exception as e:
+        logging.error(f"❌ Failed to init database table: {e}")
+
+@app.route('/submit-loan', methods=['POST'])
 def submit_loan():
     try:
-        data = request.get_json(force=True)  # ✅ force=True to handle no content-type edge case
+        data = request.get_json(force=True)
         if not data:
             return jsonify({'error': 'Invalid or empty JSON payload'}), 400
 
-        # ✅ Extract and validate fields
         name = data.get('name', '').strip()
         contact = data.get('contact', '').strip()
         uid = data.get('uid', '').strip()
         loan_type = data.get('loanType', '').strip()
         employment = data.get('employment', '').strip()
 
-        # ✅ Basic validation
         if not all([name, contact, uid, loan_type, employment]):
             return jsonify({'error': 'All fields are required'}), 400
 
-        # ✅ Log received data (without sensitive info)
         logging.info(f"Received loan application: name={name}, contact={contact}, uid={uid}, loan_type={loan_type}, employment={employment}")
 
-        # ✅ Use context manager for connection & cursor
+        init_db()
+
         with get_db_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -67,9 +86,7 @@ def submit_loan():
 
 @app.route('/health', methods=['GET'])
 def health():
-    """ ✅ Health check endpoint """
     return 'OK', 200
 
 if __name__ == '__main__':
-    # ✅ Run Flask app on all interfaces, with threaded=True for concurrent handling
     app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
